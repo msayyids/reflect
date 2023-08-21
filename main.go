@@ -41,7 +41,7 @@ func ValidateStructs(s interface{}) error {
 			max, _ := strconv.Atoi(field.Tag.Get("max"))
 			value := reflect.ValueOf(s).Field(i).Interface().(int)
 			if value < min || value > max {
-				return fmt.Errorf("%s harus berada di antara %d dan %d untuk melawan thanos", field.Name, min, max)
+				return fmt.Errorf("minimal %s harus %d dan maksimal %s harus %d untuk melawan thanos", field.Name, min,field.Name, max)
 			}
 		}
 
@@ -52,6 +52,13 @@ func ValidateStructs(s interface{}) error {
 			len := len(value)
 			if len < min || len > max {
 				return fmt.Errorf("%s harus minimal %d char dan max %d char", field.Name, min, max)
+			}
+		}
+
+		if field.Tag.Get("required") == "true"{
+			value:= reflect.ValueOf(s).Field(i).Interface()
+			if value == "" || /*regexemai*/ {
+
 			}
 		}
 
